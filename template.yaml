@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless File Sharing App
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: python3.14
+    MemorySize: 128
+
+Resources:
+  GenerateUploadURLFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.handler
+      CodeUri: generate_upload/
+      Environment:
+        Variables:
+          DDB_TABLE: FileMetadata
+          BUCKET_NAME: zen-file-share-1
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AmazonS3FullAccess
+        - AWSLambdaBasicExecutionRole
+      Events:
+        Upload:
+          Type: Api
+          Properties:
+            Path: /upload
+            Method: post
+
+  GenerateDownloadURLFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: app.handler
+      CodeUri: generate_download/
+      Environment:
+        Variables:
+          DDB_TABLE: FileMetadata
+          BUCKET_NAME: zen-file-share-1
+      Policies:
+        - AmazonDynamoDBFullAccess
+        - AmazonS3FullAccess
+        - AWSLambdaBasicExecutionRole
+      Events:
+        Download:
+          Type: Api
+          Properties:
+            Path: /download/{fileId}
+            Method: get
