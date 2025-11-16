@@ -48,3 +48,9 @@ Resources:
           Properties:
             Path: /download/{fileId}
             Method: get
+
+Environment:
+  Variables:
+    DDB_TABLE: FileMetadata
+    BUCKET_NAME: zen-file-share-1
+    API_BASE:" ""
