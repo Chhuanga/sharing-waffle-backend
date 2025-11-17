@@ -5,7 +5,7 @@ Description: Serverless File Sharing App
 Globals:
   Function:
     Timeout: 10
-    Runtime: python3.14
+    Runtime: python3.12
     MemorySize: 128
 
 Resources:
@@ -53,4 +53,4 @@ Environment:
   Variables:
     DDB_TABLE: FileMetadata
     BUCKET_NAME: zen-file-share-1
-    API_BASE:" ""
+    API_BASE: ""

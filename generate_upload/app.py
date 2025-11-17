@@ -10,7 +10,7 @@ dynamodb=boto3.resource('dynamodb')
 
 TABLE_NAME= os.environ["DDB_TABLE"]
 BUCKET_NAME=os.environ["BUCKET_NAME"]
-API_BASE= os.environ["API_BASE"]
+API_BASE= os.environ.get("API_BASE", "")
 
 table=dynamodb.Table(TABLE_NAME)
 
